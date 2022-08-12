@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+    {% if blog_list %}
+        {% for blog in blog_list %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <span class='title-header'>{{ blog.title }}</span> &middot;
+                    <span class='text-muted'>by {{ blog.author }} | {{ blog.created_on }}</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ blog.body|slice:":200" }}</p>
+                    <a href="{{ blog.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+            <h3 class='text-center'>Invalid Search Query</h3>
+            <h5 class='text-muted'>Search by title or by author only!!!!!</h5>
+    {% endif %}
+
+{% endblock content %}

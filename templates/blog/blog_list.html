@@ -1,0 +1,40 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Blogs{% endblock title %}
+
+{% block content %}
+    {% if blog_list %}
+        {% for blog in blog_list %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <span class='title-header'>{{ blog.title }}</span> &middot;
+                    <span class='text-muted'>by {{ blog.author }} | {{ blog.created_on }}</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ blog.body|slice:":200" }}</p>
+                    <a href="{{ blog.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if is_paginated %}
+    <nav aria-label="Page navigation conatiner"></nav>
+        <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a>
+            </li>
+        {% endif %}
+        {% if page_obj.has_next %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a>
+            </li>
+        {% endif %}
+        </ul>
+    </nav>
+      <!-- END Pagination -->
+    {% endif %}
+
+{% endblock content %}

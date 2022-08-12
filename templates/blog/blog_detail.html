@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Detailed Blog Post{% endblock title %}
+
+{% block content %}
+        <a href="{% url 'blog:blog_list' %}" class='btn btn-info mb-4'>Back to posts</a>
+        <div class="card mb-4">
+            <div class="card-header">
+                <span class='title-header'>{{ blog.title }}</span> &middot;
+                <span class='text-muted'>by {{ blog.author }} | {{ blog.created_on }}</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ blog.body|linebreaks }}</p>
+            </div>
+            {% if user == blog.author %}
+            <div class='card-footer text-center'>
+                    <a href="{% url 'blog:blog_edit' blog.slug %}" class='btn btn-info'>Edit</a>
+                    <a href="{% url 'blog:blog_delete' blog.slug %}" class='btn btn-danger'>Delete</a>
+            {% endif %}
+        </div>
+{% endblock content %}
